@@ -6,7 +6,7 @@ module CloudstackClient
   class Api
     include Utils
 
-    DEFAULT_API_VERSION = "4.5"
+    DEFAULT_API_VERSION = "4.12"
     API_PATH = File.expand_path("../../../data/", __FILE__)
 
     attr_reader :commands

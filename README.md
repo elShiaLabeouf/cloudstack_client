@@ -50,7 +50,7 @@ cs = CloudstackClient::Client.new(
   "SECRET_KEY",
   {
     api_path: "~/cloudstack",
-    api_version: "4.9"
+    api_version: "4.12"
   }
 )
 ```
@@ -62,7 +62,7 @@ cs = CloudstackClient::Client.new(
   "https://cloudstack.local/client/api",
   "API_KEY",
   "API_SECRET",
-  { api_file: "~/cloudstack/4.6.json.gz" }
+  { api_file: "~/cloudstack/4.12.json.gz" }
 )
 ```
 
@@ -114,9 +114,9 @@ prod >> list_virtual_machines
 
 ### Generate/Update API versions
 
-New API configs can be generated using the list_apis command.
+New API definitions can be generated using the list_apis command.
 
-*Example:*
+*Example for 4.5 API:*
 
 ```bash
 # running against an CloudStack 4.5 API endpoint:
@@ -137,6 +137,6 @@ $ gzip data/4.5.json
 
 ## License
 
-Copyright (c) 2014-2017, Nik Wolfgramm
+Copyright (c) 2014-2018, Nik Wolfgramm
 
 Released under the MIT License. See the [LICENSE](https://raw.github.com/niwo/cloudstack_client/master/LICENSE.txt) file for further details.

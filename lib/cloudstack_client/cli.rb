@@ -19,6 +19,7 @@ end
 module CloudstackClient
   class Cli < Thor
     include Thor::Actions
+    require "cloudstack_client/environment"
 
     class_option :config_file,
       default: Configuration.locate_config_file,
@@ -44,6 +45,18 @@ module CloudstackClient
       else
         raise
       end
+    end
+
+    # catch control-c and exit
+    trap("SIGINT") do
+      puts
+      puts "exit..."
+      exit!
+    end
+
+    # exit with return code 1 in case of a error
+    def self.exit_on_failure?
+      true
     end
 
     desc "version", "Print cloudstack_client version number"
@@ -99,6 +112,17 @@ module CloudstackClient
       ARGV.clear
       Ripl.config[:prompt] = "#{@config[:environment]} >> "
       Ripl.start binding: cs_client.instance_eval{ binding }
+    end
+
+    desc "environment", "Manage environments (configuration files)"
+    subcommand "environment", CloudstackClient::Environment
+
+    map 'env' => :environment
+
+    desc "init", "Initial configuration of Cloudstack connection settings"
+    def init(env = options[:environment])
+      invoke "environment:add", [env],
+        :config_file => options[:config_file]
     end
 
     no_commands do

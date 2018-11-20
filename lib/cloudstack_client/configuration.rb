@@ -4,7 +4,7 @@ module CloudstackClient
   module Configuration
 
     def self.load(configuration)
-      file = configuration[:config_file] || Configuration.locate_config_file
+      file = configuration[:config_file] || Configuration.locate_config_file || ""
       unless File.exists?(file)
         raise ConfigurationError, "Configuration file '#{file}' not found."
       end
