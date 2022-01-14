@@ -45,8 +45,11 @@ module CloudstackClient
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
+      # docker-compose environment, i.e. service_name://service_name:port/uri
+      request_uri = uri.instance_of?(URI::Generic) ? "#{uri.path}?#{uri.query}" : uri.request_uri
+
       begin
-        response = http.request(Net::HTTP::Get.new(uri.request_uri))
+        response = http.request(Net::HTTP::Get.new(request_uri))
       rescue
         raise ConnectionError, "API URL \'#{@api_url}\' is not reachable."
       end
